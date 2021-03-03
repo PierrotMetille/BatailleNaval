@@ -7,6 +7,8 @@
 #include <stdlib.h>
 
 int main() {
+    SetConsoleOutputCP(65001);
+
     int mode;
     //Amélioration graphique, bataille navale en gros et une image de bateau
     //<editor-fold desc="Bataille Navale en ASCII">
@@ -50,6 +52,21 @@ int main() {
                "|  _ \\ / _` | __/ _` | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\ | |\n"
                "| |_) | (_| | || (_| | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/ |_|\n"
                "|____/ \\__,_|\\__\\__,_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___| (_)\n");
+        //</editor-fold>
+        printf("\nvoici une petite explication des règle\n");
+        //<editor-fold desc="Tableau Brut">
+        printf("  1 2 3 4 5 6 7 8 9 10  Les ○ représente les case ou le joueur\n"
+               "A ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   n'a pas encore tiré\n"
+               "B ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Les X représente les cases ou le joueur a tiré mais pas touché\n"
+               "C ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "D ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "E ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "F ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "G ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "H ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "I ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "J ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
+               "Voici un Champs de bataille\n");
         //</editor-fold>
 
     }
