@@ -1,2 +1,2 @@
-# BatailleNaval
-Bataille Naval codée en C
+# BatailleNavale
+Bataille Navale codée en C
