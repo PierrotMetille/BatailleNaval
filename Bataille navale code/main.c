@@ -8,9 +8,19 @@
 
 int main() {
     SetConsoleOutputCP(65001);
-    int mode=0, stop = 1;
+    int mode, stop = 1, ca, c1;
+    int TV[9][9];//tableau vierge
+    int TB [9][9];//tableau bateau
     system("cls");
+    //initialisation des valeur du tableau
+    for (int y = 0; y < 10; ++y) {
+        for (int z = 0; z < 10; ++z) {
+            TV[y][z] = "○ ";
+        }
+    }
+
     while (stop == 1) {
+        mode = 0;
         if (mode == 0) {
             system("cls");
             //Amélioration graphique, bataille navale en gros et une image de bateau
@@ -81,8 +91,27 @@ int main() {
 
         }
         //quitte si l'utilisateur entre 3
-        if (mode ==3) {
+        if (mode == 3) {
             stop = 0;
+        }
+
+        if (mode == 2){
+            printf("1 2 3 4 5 6 7 8 9 10");
+            for (int i = 0; i < 10; ++i) {
+                printf("\n");
+                for (int j = 0; j < 10; ++j) {
+                    printf("%s",TV[i][j]);
+                }
+            }
+            printf("Qu'elle sont tes premières coordonée ?");
+            scanf("%c",&ca);
+
+
+        }
+
+        else {
+            printf("Ce n'est pas une option disponible (0,1,2,3) !");
+            scanf("%d",&mode);
         }
     }
 
