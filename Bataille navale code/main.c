@@ -11,6 +11,7 @@ int main() {
     int mode, stop = 1, ca, c1;
     int TV[9][9];//tableau vierge
     int TB [9][9];//tableau bateau
+    int lettre[9]={'A ','B ','C ', };
     system("cls");
     //initialisation des valeur du tableau
     for (int y = 0; y < 10; ++y) {
@@ -98,10 +99,11 @@ int main() {
         if (mode == 2){
             printf("1 2 3 4 5 6 7 8 9 10");
             for (int i = 0; i < 10; ++i) {
-                printf("\n");
+                printf("%c",lettre[i]);
                 for (int j = 0; j < 10; ++j) {
                     printf("%s",TV[i][j]);
                 }
+                printf("\n");
             }
             printf("Qu'elle sont tes premières coordonée ?");
             scanf("%c",&ca);
