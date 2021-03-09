@@ -8,24 +8,28 @@
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    int mode, stop = 1, ca, c1;
-    char TV[10][10];//tableau vierge
-    char TB [10][10]={//1,2=Sous-Marin/3=Port-Avion/4,5=Torpilleur/6=Croiseur
-            {1,3,4,6,'o','o','o','o','o','o'},
-            {1,3,4,6,'o','o','o','o','o','o'},
-            {1,3,5,6,'o','o','o','o','o','o'},
-            {2,3,5,6,'o','o','o','o','o','o'},
+    int mode, stop = 1,c=11;//c=Colone
+    char l = 'K';//l=ligne
+    //tableau joueur
+    char TV[10][10];
+    //<editor-fold desc="tableau et variable Bateaux">
+    char TB [10][10]={//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
+            {1,3,4,5,'o','o','o','o','o','o'},
+            {1,3,4,5,'o','o','o','o','o','o'},
+            {1,3,4,'o','o','o','o','o','o','o'},
+            {2,3,4,'o','o','o','o','o','o','o'},
             {2,3,'o','o','o','o','o','o','o','o'},
             {2,'o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'}
-
-    };//tableau bateau
+    };
+    int SM=2, PA=1, T=1, C=1;
+    //</editor-fold>
     char lettre[10]={'A','B','C','D','E','F','G','H','I','J'};
     system("cls");
-    //initialisation des valeur du tableau
+    //initialisation des valeur du tableau joueur
     for (int y = 0; y < 10; ++y) {
         for (int z = 0; z < 10; ++z) {
             TV[y][z] = 'o';
@@ -62,7 +66,7 @@ int main() {
             //Afficher les opions disponible, voir les précédent score et quitter ne sont pas encors disponible
 
             printf("Que voulez-vous faire ?\n"
-                   "│ 1. Apprendre a jouer│ 2. Jouer │ 3. Quitter │\nJe veut ");
+                   "│ 1. Apprendre a jouer │ 2. Jouer │ 3. Quitter │\nJe veut ");
             scanf("%d", &mode);
         }
         //si entre 1, affiche l'aide de jeux
@@ -109,24 +113,31 @@ int main() {
         }
 
         if (mode == 2){
+
             system("cls");
             printf("  1 2 3 4 5 6 7 8 9 10\n");
             for (int i = 0; i < 10; ++i) {
                 printf("%c ",lettre[i]);
                 for (int j = 0; j < 10; ++j) {
+                    if (TV[i][j] == T){
+
+                    }
                     printf("%c ",TV[i][j]);
                 }
                 printf("\n");
             }
-            printf("Qu'elle sont tes premières coordonée ?");
-            scanf("%s",&ca);
-
+            printf("Il reste %d Porte Avion  %d Croiseur  %d Sous-Marin  %d Torpilleur",PA,C,SM,T);
+            printf("\n\nQu'elle est ta première coordonée (A, B, C, ext...)?");
+            scanf("%s", &l);
+            printf("\n\nQu'elle est ta segonde coordonée (1, 2, 3, ext...)?");
+            scanf("%d", &c);
 
         }
 
         else {
             system("cls");
-            printf("Ce n'est pas une option disponible (0,1,2,3) !");//j'ai un petit bug, il faut entrer 2 fois 0 pour que sa marche
+            //j'ai un petit bug, il faut entrer 2 fois pour que sa marche
+            printf("Ce n'est pas une option disponible ! │ 0. Accueil │ 1. Apprendre a jouer │ 2. Jouer │ 3. Quitter │");
             scanf("%d",&mode);
         }
     }
