@@ -7,16 +7,28 @@
 #include <stdlib.h>
 
 int main() {
-    SetConsoleOutputCP(65001);
+    SetConsoleOutputCP(CP_UTF8);
     int mode, stop = 1, ca, c1;
-    int TV[9][9];//tableau vierge
-    int TB [9][9];//tableau bateau
-    int lettre[9]={'A','B','C', };
+    char TV[10][10];//tableau vierge
+    char TB [10][10]={//1,2=Sous-Marin/3=Port-Avion/4,5=Torpilleur/6=Croiseur
+            {1,3,4,6,'o','o','o','o','o','o'},
+            {1,3,4,6,'o','o','o','o','o','o'},
+            {1,3,5,6,'o','o','o','o','o','o'},
+            {2,3,5,6,'o','o','o','o','o','o'},
+            {2,3,'o','o','o','o','o','o','o','o'},
+            {2,'o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'}
+
+    };//tableau bateau
+    char lettre[10]={'A','B','C','D','E','F','G','H','I','J'};
     system("cls");
     //initialisation des valeur du tableau
     for (int y = 0; y < 10; ++y) {
         for (int z = 0; z < 10; ++z) {
-            TV[y][z] = "○ ";
+            TV[y][z] = 'o';
         }
     }
 
@@ -97,21 +109,23 @@ int main() {
         }
 
         if (mode == 2){
-            printf("1 2 3 4 5 6 7 8 9 10");
+            system("cls");
+            printf("  1 2 3 4 5 6 7 8 9 10\n");
             for (int i = 0; i < 10; ++i) {
-                printf("%s",lettre[i]);
+                printf("%c ",lettre[i]);
                 for (int j = 0; j < 10; ++j) {
-                    printf("%s",TV[i][j]);
+                    printf("%c ",TV[i][j]);
                 }
                 printf("\n");
             }
             printf("Qu'elle sont tes premières coordonée ?");
-            scanf("%c",&ca);
+            scanf("%s",&ca);
 
 
         }
 
         else {
+            system("cls");
             printf("Ce n'est pas une option disponible (0,1,2,3) !");//j'ai un petit bug, il faut entrer 2 fois 0 pour que sa marche
             scanf("%d",&mode);
         }
