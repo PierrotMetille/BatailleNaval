@@ -8,10 +8,10 @@
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    int mode, stop = 1,c=11;//c=Colone
-    char l = 'K';//l=ligne
+    int mode, stop = 1,c=11, gagner;//c=Colone
+    char l = 'K', lsais;//l=ligne  lsais=l qui est saisie
     //tableau joueur
-    char TV[10][10];
+    char TJ[10][10];
     //<editor-fold desc="tableau et variable Bateaux">
     char TB [10][10]={//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
             {1,3,4,5,'o','o','o','o','o','o'},
@@ -32,7 +32,7 @@ int main() {
     //initialisation des valeur du tableau joueur
     for (int y = 0; y < 10; ++y) {
         for (int z = 0; z < 10; ++z) {
-            TV[y][z] = 'o';
+            TJ[y][z] = 'o';
         }
     }
 
@@ -91,14 +91,14 @@ int main() {
                    "A ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   n'a pas encore tiré\n"
                    "B ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Les X représente les cases ou le joueur a\n"
                    "C ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   tiré mais pas touché\n"
-                   "D ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Les ■ sont les case ou le joueur a touché\n"
-                   "E ○ ○ ○ ○ ○ ■ x ○ ○ ○\n"
+                   "D ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Les T sont les case ou le joueur a Touché\n"
+                   "E ○ ○ ○ ○ ○ T x ○ ○ ○\n"
                    "F ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Il y a différent type de bateau:\n"
                    "G ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
-                   "H ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   1 Porte Avion = 5 ■\n"
-                   "I ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   1 Croiseur = 4 ■\n"
-                   "J ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   2 Sous-Marins = 3 ■ chacun\n"
-                   "↑ exemple de partie     1 Torpilleur = 2 ■\n"
+                   "H ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   1 Porte Avion = 5 T\n"
+                   "I ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   1 Croiseur = 4 T\n"
+                   "J ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   2 Sous-Marins = 3 T chacun\n"
+                   "↑ exemple de partie     1 Torpilleur = 2 T\n"
                    "\nIl faut donc entrer des coordonée dans le but de toucher\nles navire ennemi, Exemple:\n"
                    "E7 touche, E8 ne touche pas\n");
             //</editor-fold>
@@ -112,26 +112,39 @@ int main() {
             stop = 0;
         }
 
-        if (mode == 2){
-
-            system("cls");
-            printf("  1 2 3 4 5 6 7 8 9 10\n");
-            for (int i = 0; i < 10; ++i) {
-                printf("%c ",lettre[i]);
-                for (int j = 0; j < 10; ++j) {
-                    if (TV[i][j] == T){
-
+        if (mode == 2) {
+            while (gagner != 1) {
+                system("cls");
+                printf("  1 2 3 4 5 6 7 8 9 10\n");
+                for (int i = 0; i < 10; ++i) {
+                    printf("%c ", lettre[i]);
+                    for (int j = 0; j < 10; ++j) {
+                        if (i == l && j == c) {
+                            if (TB[i][j] >= 1 && TB[i][j] <= 5)TJ[i][j] = 'T';
+                        }
+                        printf("%c ", TJ[i][j]);
                     }
-                    printf("%c ",TV[i][j]);
+                    printf("\n");
                 }
-                printf("\n");
-            }
-            printf("Il reste %d Porte Avion  %d Croiseur  %d Sous-Marin  %d Torpilleur",PA,C,SM,T);
-            printf("\n\nQu'elle est ta première coordonée (A, B, C, ext...)?");
-            scanf("%s", &l);
-            printf("\n\nQu'elle est ta segonde coordonée (1, 2, 3, ext...)?");
-            scanf("%d", &c);
+                printf("Il reste %d Porte Avion  %d Croiseur  %d Sous-Marin  %d Torpilleur", PA, C, SM, T);
 
+                //<editor-fold desc="Systeme de vérification des valeur + conversion des letres en nbr">
+                do {
+                    printf("\n\nQu'elle est ta première coordonée (A, B, C, ect...)?");
+                    scanf("%s", &lsais);
+                    if (lsais >= 65 && lsais <= 74) lsais += 32;
+                    l = lsais - 96;
+                    if (lsais <= 96 || lsais >= 107) printf("Sa doit êtes entre A et J !");
+                } while (lsais <= 96 || lsais >= 107); //verifie si entre A-J
+
+                do {
+
+                    printf("\n\nQu'elle est ta seconde coordonée (1, 2, 3, ect...)?");
+                    scanf("%d", &c);
+                    if (c > 10 || c < 1) printf("Sa doit êtres entre 1 et 10 !");
+                } while (c > 10 || c < 1);
+                //</editor-fold>
+            }
         }
 
         else {
