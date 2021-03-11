@@ -40,12 +40,48 @@ void aideDeJeux(){
 } // affiche l'aide de jeux
 void clear(){
     system("cls");} // Remet le terminal a 0
+void accueil(){
+    //<editor-fold desc="Bataille Navale en ASCII">
+    printf(" ____        _        _ _ _        _   _                  _\n"
+           "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
+           "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
+           "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
+           "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
+    //</editor-fold>
+    //<editor-fold desc="Bateau en ASCII">
+    printf("                                        .\n"
+           "                           .                 |\n"
+           "                           +                 |\n"
+           "                  .        |                *+W+-*\n"
+           "     .           +y        +W+              . H                 .\n"
+           "  .  +y            |I.   y  |               ! H= .           .  ^\n"
+           "  !   \\     .     |H '. /   |  ___.        .! H  !   +--.--y !  V\n"
+           "  !    \\     \\  +=|H|=='.=+ | |====\\   _  '_H_H__H_. H_/=  J !  !\n"
+           ". !     \\'    VVV_HHH_/__'._H |  E  \\_|=|_|========|_|==|____H. ! _______.\n"
+           "I-H_I=I=HH_==_|I_IIIII_I_I_=HH|======.I-I-I-=======-I=I=I=I_=H|=H'===I=I/\n"
+           "\\                                                                      ,\n"
+           " |                                                                    /\n"
+           " .___________________________________________________________________'\n");
+    //</editor-fold>
+}//Amélioration graphique, bataille navale en gros et une image de bateau
+void joueurgagne(){
+    printf(" ______   _______  _______           _______    _ \n"
+           "(  ___ \\ (  ____ )(  ___  )|\\     /|(  ___  )  ( )\n"
+           "| (   ) )| (    )|| (   ) || )   ( || (   ) |  | |\n"
+           "| (__/ / | (____)|| (___) || |   | || |   | |  | |\n"
+           "|  __ (  |     __)|  ___  |( (   ) )| |   | |  | |\n"
+           "| (  \\ \\ | (\\ (   | (   ) | \\ \\_/ / | |   | |  (_)\n"
+           "| )___) )| ) \\ \\__| )   ( |  \\   /  | (___) |   _ \n"
+           "|/ \\___/ |/   \\__/|/     \\|   \\_/   (_______)  (_)\n\n│ 0. Accueil │ 1. Apprendre a jouer │ 2. Jouer │ 3. Quitter │\n\nJe veut :");
+    scanf("%d",&MODE);
+    fflush(stdin);
+}
 int queFair(){
     printf("Que voulez-vous faire maintenant ?\n│ 0. Accueil │ 2. Jouer │ 3. Quitter │\n");
     printf("Je veut ");
     scanf("%d", &MODE);
     fflush(stdin);
-}
+}//Affiche les option disponible quand l'utilisateur entre une valeur non valable
 
 
 
@@ -56,7 +92,7 @@ int main() {
     char ligne = 'K', ligneSaisie;
     char tableauJoueur[10][10];
     //<editor-fold desc="tableau et variable Bateaux">
-    char tableauBateaux [10][10]={//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
+    char tableauBateaux [10][10]={
             {1,3,4,5,'o','o','o','o','o','o'},
             {1,3,4,5,'o','o','o','o','o','o'},
             {1,3,4,'o','o','o','o','o','o','o'},
@@ -67,11 +103,11 @@ int main() {
             {'o','o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'}
-    };
+    };//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
     int sousMarin=2, portAvion=1, torpilleur=1, croiseur=1;
     //</editor-fold>
     char lettre[10]={'A','B','C','D','E','F','G','H','I','J'};
-    system("cls");
+    clear();
     //initialisation des valeur du tableau joueur
     for (int y = 0; y < 10; ++y) {
         for (int z = 0; z < 10; ++z) {
@@ -81,33 +117,10 @@ int main() {
 
     while (stop == 1) {
         MODE = 0;
+        //Affiche de toute facon l'acceuil
         if (MODE == 0) {
             clear();
-            //Amélioration graphique, bataille navale en gros et une image de bateau
-            //<editor-fold desc="Bataille Navale en ASCII">
-            printf(" ____        _        _ _ _        _   _                  _\n"
-                   "| __ )  __ _| |_ __ _(_) | | ___  | \\ | | __ ___   ____ _| | ___\n"
-                   "|  _ \\ / _` | __/ _` | | | |/ _ \\ |  \\| |/ _` \\ \\ / / _` | |/ _ \\\n"
-                   "| |_) | (_| | || (_| | | | |  __/ | |\\  | (_| |\\ V / (_| | |  __/\n"
-                   "|____/ \\__,_|\\__\\__,_|_|_|_|\\___| |_| \\_|\\__,_| \\_/ \\__,_|_|\\___|\n");
-            //</editor-fold>
-            //<editor-fold desc="Bateau en ASCII">
-            printf("                                        .\n"
-                   "                           .                 |\n"
-                   "                           +                 |\n"
-                   "                  .        |                *+W+-*\n"
-                   "     .           +y        +W+              . H                 .\n"
-                   "  .  +y            |I.   y  |               ! H= .           .  ^\n"
-                   "  !   \\     .     |H '. /   |  ___.        .! H  !   +--.--y !  V\n"
-                   "  !    \\     \\  +=|H|=='.=+ | |====\\   _  '_H_H__H_. H_/=  J !  !\n"
-                   ". !     \\'    VVV_HHH_/__'._H |  E  \\_|=|_|========|_|==|____H. ! _______.\n"
-                   "I-H_I=I=HH_==_|I_IIIII_I_I_=HH|======.I-I-I-=======-I=I=I=I_=H|=H'===I=I/\n"
-                   "\\                                                                      ,\n"
-                   " |                                                                    /\n"
-                   " .___________________________________________________________________'\n");
-            //</editor-fold>
-            //Afficher les opions disponible, voir les précédent score et quitter ne sont pas encors disponible
-
+            accueil();
             queFair();
         }
         //si entre 1, affiche l'aide de jeux
@@ -124,7 +137,7 @@ int main() {
 
         if (MODE == 2) {
             while (gagner != 1) {
-                system("cls");
+                clear();
                 if (coupToucher == 17)gagner=1;//si 17 coup toucher, gagner = 1 et donc affiche le gg
                 printf("  1 2 3 4 5 6 7 8 9 10\n");
                 for (int i = 0; i < 10; ++i) {
@@ -165,17 +178,8 @@ int main() {
             }
         }
         if (gagner =1){
-            system("cls");
-            printf(" ______   _______  _______           _______    _ \n"
-                   "(  ___ \\ (  ____ )(  ___  )|\\     /|(  ___  )  ( )\n"
-                   "| (   ) )| (    )|| (   ) || )   ( || (   ) |  | |\n"
-                   "| (__/ / | (____)|| (___) || |   | || |   | |  | |\n"
-                   "|  __ (  |     __)|  ___  |( (   ) )| |   | |  | |\n"
-                   "| (  \\ \\ | (\\ (   | (   ) | \\ \\_/ / | |   | |  (_)\n"
-                   "| )___) )| ) \\ \\__| )   ( |  \\   /  | (___) |   _ \n"
-                   "|/ \\___/ |/   \\__/|/     \\|   \\_/   (_______)  (_)\n\n│ 0. Accueil │ 1. Apprendre a jouer │ 2. Jouer │ 3. Quitter │\n\nJe veut :");
-            scanf("%d",&MODE);
-            fflush(stdin);
+            clear();
+            joueurgagne();
         }
 
         else {
