@@ -64,7 +64,7 @@ void accueil(){
            " .___________________________________________________________________'\n");
     //</editor-fold>
 }//Amélioration graphique, bataille navale en gros et une image de bateau
-void joueurgagne(){
+void joueurGagne(){
     printf(" ______   _______  _______           _______    _ \n"
            "(  ___ \\ (  ____ )(  ___  )|\\     /|(  ___  )  ( )\n"
            "| (   ) )| (    )|| (   ) || )   ( || (   ) |  | |\n"
@@ -104,7 +104,7 @@ int main() {
             {'o','o','o','o','o','o','o','o','o','o'},
             {'o','o','o','o','o','o','o','o','o','o'}
     };//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
-    int sousMarin=2, portAvion=1, torpilleur=1, croiseur=1;
+    int sousMarin=2, sousMarin1Vie=0, sousMarin2Vie=0, portAvion=1, portAvionVie=0, torpilleur=1, torpilleurVie=0, croiseur=1, croiseurVie=0;
     //</editor-fold>
     char lettre[10]={'A','B','C','D','E','F','G','H','I','J'};
     clear();
@@ -138,15 +138,43 @@ int main() {
         if (MODE == 2) {
             while (gagner != 1) {
                 clear();
-                if (coupToucher == 17)gagner=1;//si 17 coup toucher, gagner = 1 et donc affiche le gg
+                if (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur && 0) gagner=1;//si tout les navire sont abbatu gagner = 1 et donc affiche le joueurGagner
                 printf("  1 2 3 4 5 6 7 8 9 10\n");
                 for (int i = 0; i < 10; ++i) {
                     printf("%c ", lettre[i]);
                     for (int j = 0; j < 10; ++j) {
                         if (i == ligne && j == colonne) {
                             if (tableauBateaux[i][j] >= 1 && tableauBateaux[i][j] <= 5){
+                                switch (tableauBateaux[i][j]) {
+                                    case 1:
+                                        sousMarin1Vie ++;
+                                        if (sousMarin1Vie == 3) sousMarin --;
+                                        printf("Un Sous-Marin a été détruis !");
+                                        break;
+                                    case 2:
+                                        sousMarin2Vie ++;
+                                        if (sousMarin2Vie == 3) sousMarin --;
+                                        printf("Un Sous-Marin a été détruis !");
+                                        break;
+                                    case 3:
+                                        portAvionVie ++;
+                                        if (portAvionVie == 5) portAvion --;
+                                        printf("Le Port-Avion a été détruis !");
+                                        break;
+                                    case 4:
+                                        torpilleurVie ++;
+                                        if (torpilleurVie == 2) torpilleur --;
+                                        printf("Le Torpilleur a été détruis !");
+                                        break;
+                                    case 5:
+                                        croiseurVie ++;
+                                        if (croiseurVie == 4) croiseur --;
+                                        printf("Le Croiseur a été détruis !");
+                                        break;
+
+                                }
                                 tableauJoueur[i][j] = 'T';
-                                coupToucher += 1;
+
                             }
                             else tableauJoueur[i][j] = 'X';
                         }
@@ -179,7 +207,7 @@ int main() {
         }
         if (gagner =1){
             clear();
-            joueurgagne();
+            joueurGagne();
         }
 
         else {
