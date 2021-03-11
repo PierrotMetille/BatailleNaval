@@ -39,7 +39,7 @@ void aideDeJeux(){
     //</editor-fold>
 } // affiche l'aide de jeux
 void clear(){
-    system("cls");} // Remet le terminal a 0
+    system("cls");} // nettoie le terminal a 0
 void accueil(){
     //<editor-fold desc="Bataille Navale en ASCII">
     printf(" ____        _        _ _ _        _   _                  _\n"
@@ -77,18 +77,18 @@ void joueurGagne(){
     fflush(stdin);
 }
 int queFair(){
-    printf("Que voulez-vous faire maintenant ?\n│ 0. Accueil │ 2. Jouer │ 3. Quitter │\n");
-    printf("Je veut ");
-    scanf("%d", &MODE);
-    fflush(stdin);
+    do {
+        printf("Que voulez-vous faire maintenant ?\n│ 0. Accueil │ 1. Apprendre à Jouer │ 2. Jouer │ 3. Quitter │\n");
+        printf("Je veut :");
+        scanf("%d", &MODE);
+        fflush(stdin);
+    }while (MODE > 5 || MODE < 0);
+    return MODE;
 }//Affiche les option disponible quand l'utilisateur entre une valeur non valable
-
-
-
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    int stop = 1,colonne=11, gagner=2, coupToucher = 0;
+    int stop = 1,colonne=11, gagner=2;
     char ligne = 'K', ligneSaisie;
     char tableauJoueur[10][10];
     //<editor-fold desc="tableau et variable Bateaux">
@@ -117,7 +117,7 @@ int main() {
 
     while (stop == 1) {
         MODE = 0;
-        //Affiche de toute facon l'acceuil
+        //Affiche de toute façon l'accueil
         if (MODE == 0) {
             clear();
             accueil();
@@ -138,7 +138,7 @@ int main() {
         if (MODE == 2) {
             while (gagner != 1) {
                 clear();
-                if (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur && 0) gagner=1;//si tout les navire sont abbatu gagner = 1 et donc affiche le joueurGagner
+                if (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur) gagner=1;//si tout les navire sont abbatu gagner = 1 et donc affiche le joueurGagner
                 printf("  1 2 3 4 5 6 7 8 9 10\n");
                 for (int i = 0; i < 10; ++i) {
                     printf("%c ", lettre[i]);
@@ -148,28 +148,40 @@ int main() {
                                 switch (tableauBateaux[i][j]) {
                                     case 1:
                                         sousMarin1Vie ++;
-                                        if (sousMarin1Vie == 3) sousMarin --;
-                                        printf("Un Sous-Marin a été détruis !");
+                                        if (sousMarin1Vie == 3) {
+                                            sousMarin--;
+                                            clear();
+                                            printf("Un Sous-Marin a été détruis !\n");
+                                        }
                                         break;
                                     case 2:
                                         sousMarin2Vie ++;
-                                        if (sousMarin2Vie == 3) sousMarin --;
-                                        printf("Un Sous-Marin a été détruis !");
+                                        if (sousMarin2Vie == 3) {
+                                            sousMarin--;
+                                            clear();
+                                            printf("Un Sous-Marin a été détruis !\n");
+                                        }
                                         break;
                                     case 3:
                                         portAvionVie ++;
-                                        if (portAvionVie == 5) portAvion --;
-                                        printf("Le Port-Avion a été détruis !");
+                                        if (portAvionVie == 5){
+                                            portAvion --;
+                                            clear();
+                                            printf("Le Port-Avion a été détruis !\n");}
                                         break;
                                     case 4:
                                         torpilleurVie ++;
-                                        if (torpilleurVie == 2) torpilleur --;
-                                        printf("Le Torpilleur a été détruis !");
+                                        if (torpilleurVie == 2){
+                                            torpilleur --;
+                                            clear();
+                                            printf("Le Torpilleur a été détruis !\n");}
                                         break;
                                     case 5:
                                         croiseurVie ++;
-                                        if (croiseurVie == 4) croiseur --;
-                                        printf("Le Croiseur a été détruis !");
+                                        if (croiseurVie == 4){
+                                            croiseur --;
+                                            clear();
+                                            printf("Le Croiseur a été détruis !\n");}
                                         break;
 
                                 }
@@ -205,14 +217,10 @@ int main() {
                 //</editor-fold>
             }
         }
-        if (gagner =1){
+
+        if (gagner == 1){
             clear();
             joueurGagne();
-        }
-
-        else {
-            clear();
-            queFair();
         }
     }
 
