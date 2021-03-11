@@ -8,7 +8,7 @@
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    int mode, stop = 1,c=11, gagner;//c=Colone
+    int mode, stop = 1,c=11, gagner=2, nbrct = 0;//c=Colone nbrct= nombre de coup touché, utiliser pour sttoper le programme dès que l'utilisateur a toucher 17x
     char l = 'K', lsais;//l=ligne  lsais=l qui est saisie
     //tableau joueur
     char TJ[10][10];
@@ -92,7 +92,7 @@ int main() {
                    "B ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Les X représente les cases ou le joueur a\n"
                    "C ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   tiré mais pas touché\n"
                    "D ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Les T sont les case ou le joueur a Touché\n"
-                   "E ○ ○ ○ ○ ○ T x ○ ○ ○\n"
+                   "E ○ ○ ○ ○ ○ T X ○ ○ ○\n"
                    "F ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   Il y a différent type de bateau:\n"
                    "G ○ ○ ○ ○ ○ ○ ○ ○ ○ ○\n"
                    "H ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   1 Porte Avion = 5 T\n"
@@ -115,12 +115,14 @@ int main() {
         if (mode == 2) {
             while (gagner != 1) {
                 system("cls");
+                if (nbrct = 17)gagner=1;//si 17 coup toucher, gagner = 1 et donc affiche le gg
                 printf("  1 2 3 4 5 6 7 8 9 10\n");
                 for (int i = 0; i < 10; ++i) {
                     printf("%c ", lettre[i]);
                     for (int j = 0; j < 10; ++j) {
                         if (i == l && j == c) {
-                            if (TB[i][j] >= 1 && TB[i][j] <= 5)TJ[i][j] = 'T';
+                            if (TB[i][j] >= 1 && TB[i][j] <= 5)TJ[i][j] = 'T', ++nbrct;
+                            else TJ[i][j] = 'X';
                         }
                         printf("%c ", TJ[i][j]);
                     }
@@ -145,6 +147,18 @@ int main() {
                 } while (c > 10 || c < 1);
                 //</editor-fold>
             }
+        }
+        if (gagner =1){
+            system("cls");
+            printf(" ______   _______  _______           _______    _ \n"
+                   "(  ___ \\ (  ____ )(  ___  )|\\     /|(  ___  )  ( )\n"
+                   "| (   ) )| (    )|| (   ) || )   ( || (   ) |  | |\n"
+                   "| (__/ / | (____)|| (___) || |   | || |   | |  | |\n"
+                   "|  __ (  |     __)|  ___  |( (   ) )| |   | |  | |\n"
+                   "| (  \\ \\ | (\\ (   | (   ) | \\ \\_/ / | |   | |  (_)\n"
+                   "| )___) )| ) \\ \\__| )   ( |  \\   /  | (___) |   _ \n"
+                   "|/ \\___/ |/   \\__/|/     \\|   \\_/   (_______)  (_)\n│ 0. Accueil │ 1. Apprendre a jouer │ 2. Jouer │ 3. Quitter │\n");
+            scanf("%d",&mode);
         }
 
         else {
