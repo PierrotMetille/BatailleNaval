@@ -86,8 +86,9 @@ int queFair(){
     }while (MODE > 5 || MODE < 0);
     return MODE;
 }//Affiche les options disponibles quand l'utilisateur entre une valeur non valable
-void {
-fichier = fopen("%c.txt", "a",nom);
+void newFichier(nom) {
+    FILE* fichier = NULL;
+    fichier = fopen("logs/xx.txt", "a");
 }
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -146,6 +147,7 @@ int main() {
                     printf("est ton nom ?\n:");
                     scanf("%d", &nom);
                     fflush(stdin);
+                    newFichier();
                     clear();
                     printf("  1 2 3 4 5 6 7 8 9 10\n");
                     for (int i = 0; i < 10; ++i) {
