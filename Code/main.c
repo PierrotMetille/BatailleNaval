@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <windows.h>
 #include <stdlib.h>
-int MODE;
+int MODE = 0;
 void aideDeJeux(){
     //<editor-fold desc="Bienvenu BN">
     printf(" ____  _                                            _\n"
@@ -86,9 +86,13 @@ int queFair(){
     }while (MODE > 5 || MODE < 0);
     return MODE;
 }//Affiche les options disponibles quand l'utilisateur entre une valeur non valable
-void newFichier(nom) {
+void newFichier() {
+    int nom;
+    printf("est ton nom ?\n:");
+    scanf("%d", &nom);
+    fflush(stdin);
     FILE* fichier = NULL;
-    fichier = fopen("logs/xx.txt", "a");
+    fichier = fopen("logs/nom.txt", "a");
 }
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -96,11 +100,11 @@ int main() {
     char ligne = 'K', ligneSaisie, tableauJoueur[10][10], nom;
     //<editor-fold desc="Tableau et variable Bateaux">
     char tableauBateaux[10][10] = {
-            {1,   3,   4,   5, 'o',   'o', 'o', 'o', 'o', 'o'},
-            {1,   3,   4,   5, 'o',   'o', 'o', 'o', 'o', 'o'},
-            {1,   3,   4,   'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {2,   3,   4,   'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {2,   3,   'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
+            {1,3,4,5, 'o','o', 'o', 'o', 'o', 'o'},
+            {1,3,4,5, 'o','o', 'o', 'o', 'o', 'o'},
+            {1,3,4,   'o', 'o','o', 'o', 'o', 'o', 'o'},
+            {2,3,4,   'o', 'o', 'o', 'o', 'o', 'o', 'o'},
+            {2,3,'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
             {2,   'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
             {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
             {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
@@ -119,7 +123,6 @@ int main() {
     }
     clear();
     while (stop == 1) {
-        MODE = 0;
         switch (MODE) {
 
             //Affiche de toute façon l'accueil
@@ -143,11 +146,7 @@ int main() {
                     if (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur)
                         gagner = 1;//si tout les navire sont abbatu gagner = 1 et donc affiche le joueurGagner
 
-                    //Affiche le tableau et demande le nom de l'utilisateur
-                    printf("est ton nom ?\n:");
-                    scanf("%d", &nom);
-                    fflush(stdin);
-                    newFichier();
+                    //Affiche le tableau
                     clear();
                     printf("  1 2 3 4 5 6 7 8 9 10\n");
                     for (int i = 0; i < 10; ++i) {
@@ -245,10 +244,11 @@ int main() {
         }
     }
 
-    //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur ce qu'il veut faire
+    //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son scor et se qu'il veut faire ensuite
     if (gagner == 1){
         clear();
         joueurGagne();
+        newFichier();
         queFair();
     }
 
