@@ -73,9 +73,7 @@ void joueurGagne(){
            "|  __ (  |     __)|  ___  |( (   ) )| |   | |  | |\n"
            "| (  \\ \\ | (\\ (   | (   ) | \\ \\_/ / | |   | |  (_)\n"
            "| )___) )| ) \\ \\__| )   ( |  \\   /  | (___) |   _ \n"
-           "|/ \\___/ |/   \\__/|/     \\|   \\_/   (_______)  (_)\n\n│ 0. Accueil │ 1. Apprendre a jouer │ 2. Jouer │ 3. Quitter │\n\nJe veut :");
-    scanf("%d",&MODE);
-    fflush(stdin);
+           "|/ \\___/ |/   \\__/|/     \\|   \\_/   (_______)  (_)\n");
 }//Affiche le menu "gagner"
 int queFair(){
     do {
@@ -83,16 +81,17 @@ int queFair(){
         printf("Je veut :");
         scanf("%d", &MODE);
         fflush(stdin);
-    }while (MODE > 5 || MODE < 0);
+        //Ajout d'une 4 emm option pour directement afficher la fenêtre de victoire
+    }while (MODE > 4 || MODE < 0);
     return MODE;
 }//Affiche les options disponibles quand l'utilisateur entre une valeur non valable
 void newFichier() {
-    int nom;
+    char *nom;
     printf("est ton nom ?\n:");
     scanf("%d", &nom);
     fflush(stdin);
     FILE* fichier = NULL;
-    fichier = fopen("logs/nom.txt", "a");
+    fichier = fopen(nom, "a");
 }
 int main() {
     SetConsoleOutputCP(CP_UTF8);
@@ -141,10 +140,8 @@ int main() {
 
                 //Si 2, joue à la Bataille Navale
             case 2 :
-                while (gagner != 1) {
+                do {
                     clear();
-                    if (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur)
-                        gagner = 1;//si tout les navire sont abbatu gagner = 1 et donc affiche le joueurGagner
 
                     //Affiche le tableau
                     clear();
@@ -233,7 +230,8 @@ int main() {
                     } while (colonne > 9 || colonne < 0);//verifie si entre 1-10
                     //</editor-fold>
 
-                }
+                }while (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur);
+                gagner = 1;
                 break;
 
                 //Quitte si l'utilisateur entre 3
@@ -241,16 +239,21 @@ int main() {
                 stop = 0;
                 break;
 
+            case 4 :
+                gagner = 1;
+                break;
+
+        }
+        //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son scor et se qu'il veut faire ensuite
+        if (gagner == 1){
+            clear();
+            joueurGagne();
+            newFichier();
+            queFair();
         }
     }
 
-    //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son scor et se qu'il veut faire ensuite
-    if (gagner == 1){
-        clear();
-        joueurGagne();
-        newFichier();
-        queFair();
-    }
+
 
     return 0;
 }
