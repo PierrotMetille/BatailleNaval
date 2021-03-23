@@ -85,18 +85,22 @@ int queFair(){
     }while (MODE > 4 || MODE < 0);
     return MODE;
 }//Affiche les options disponibles quand l'utilisateur entre une valeur non valable
-void newFichier() {
-    char *nom;
-    printf("est ton nom ?\n:");
-    scanf("%d", &nom);
+void newFichier(int score) {
+    char nom[100];
+    printf("Quel est ton nom ?\n");
+    scanf("%s", &nom);
     fflush(stdin);
     FILE* fichier = NULL;
     fichier = fopen(nom, "a");
+    printf("Bravo %s ton score est %d ! Plus ton score est haut, moin il est bon.\nLe meilleur score à obtenir est 17 !\n", nom, score);
+
+
+    fclose(fichier);
 }
 int main() {
     SetConsoleOutputCP(CP_UTF8);
-    int stop = 1, colonne = 11, gagner = 2;
-    char ligne = 'K', ligneSaisie, tableauJoueur[10][10], nom;
+    int stop = 1, colonne = 11, gagner = 2, score;
+    char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
     //<editor-fold desc="Tableau et variable Bateaux">
     char tableauBateaux[10][10] = {
             {1,3,4,5,'o','o','o','o','o','o'},
@@ -142,6 +146,7 @@ int main() {
             case 2 :
                 do {
                     clear();
+                    score = 0;
 
                     //Affiche le tableau
                     clear();
@@ -218,7 +223,7 @@ int main() {
                         ligne = ligneSaisie - 97;
                         if (ligneSaisie <= 96 || ligneSaisie >= 107) printf("Sa doit êtes entre A et J !");
                     } while (ligneSaisie <= 96 || ligneSaisie >= 107); //verifie si entre A-J, sinon redemande
-
+                    score++;
                     do {
 
                         //Même chose que pour les lettres mais cette fois ci pour des nombres
@@ -248,7 +253,7 @@ int main() {
         if (gagner == 1){
             clear();
             joueurGagne();
-            newFichier();
+            newFichier(score);
             queFair();
         }
     }
