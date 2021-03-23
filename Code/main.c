@@ -100,16 +100,16 @@ int main() {
     char ligne = 'K', ligneSaisie, tableauJoueur[10][10], nom;
     //<editor-fold desc="Tableau et variable Bateaux">
     char tableauBateaux[10][10] = {
-            {1,3,4,5, 'o','o', 'o', 'o', 'o', 'o'},
-            {1,3,4,5, 'o','o', 'o', 'o', 'o', 'o'},
-            {1,3,4,   'o', 'o','o', 'o', 'o', 'o', 'o'},
-            {2,3,4,   'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {2,3,'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {2,   'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'},
-            {'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o', 'o'}
+            {1,3,4,5,'o','o','o','o','o','o'},
+            {1,3,4,5,'o','o','o','o','o','o'},
+            {1,3,4,'o','o','o','o','o','o','o'},
+            {2,3,4,'o','o','o','o','o','o','o'},
+            {2,3,'o','o','o','o','o','o','o','o'},
+            {2,'o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'},
+            {'o','o','o','o','o','o','o','o','o','o'}
     };//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
     int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
     //</editor-fold>
@@ -157,7 +157,7 @@ int main() {
 
                             //Dès que la ligne et la colonne saisie correspond à la case qui va êtres affichée, vérifie si il y a un bateau
                             if (i == ligne && j == colonne) {
-                                if (tableauBateaux[i][j] >= 1 && tableauBateaux[i][j] <= 5 &&
+                                if (tableauBateaux[i][j] >= 1 && tableauBateaux[i][j] <= 5 ||
                                     tableauJoueur[i][j] != 'o') {
 
                                     //Pour chaque coup tiré dans une nouvelle case occupant un bateau, le bateau en question pert une vie, dès qu'il en a plus, il est détruis
