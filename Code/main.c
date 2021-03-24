@@ -7,6 +7,24 @@
 #include <windows.h>
 #include <stdlib.h>
 int MODE = 0;
+int stop = 1, colonne = 11, gagner = 2, score, message;
+char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
+//<editor-fold desc="Tableau et variable Bateaux">
+char tableauBateaux[10][10] = {
+        {1,3,4,5,'o','o','o','o','o','o'},
+        {1,3,4,5,'o','o','o','o','o','o'},
+        {1,3,4,'o','o','o','o','o','o','o'},
+        {2,3,4,'o','o','o','o','o','o','o'},
+        {2,3,'o','o','o','o','o','o','o','o'},
+        {2,'o','o','o','o','o','o','o','o','o'},
+        {'o','o','o','o','o','o','o','o','o','o'},
+        {'o','o','o','o','o','o','o','o','o','o'},
+        {'o','o','o','o','o','o','o','o','o','o'},
+        {'o','o','o','o','o','o','o','o','o','o'}
+};//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
+int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
+//</editor-fold>
+char lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 void aideDeJeux(){
     //<editor-fold desc="Bienvenu BN">
     printf(" ____  _                                            _\n"
@@ -77,15 +95,15 @@ void joueurGagne(){
 }//Affiche le menu "gagner"
 int queFair(){
     do {
-        printf("Que voulez-vous faire maintenant ?\n│ 0. Accueil │ 1. Apprendre à Jouer │ 2. Jouer │ 3. Quitter │\n");
+        printf("Que voulez-vous faire maintenant ?\n│ 0. Accueil │ 1. Apprendre à Jouer │ 2. Jouer │ 3. Voir les scores │ 4. Quitter │\n");
         printf("Je veut :");
         scanf("%d", &MODE);
         fflush(stdin);
         //Ajout d'une 4 emm option pour directement afficher la fenêtre de victoire
-    }while (MODE > 4 || MODE < 0);
+    }while (MODE > 5 || MODE < 0);
     return MODE;
 }//Affiche les options disponibles quand l'utilisateur entre une valeur non valable
-void newFichier(int score) {
+void newFichier() {
     char nom[100];
     printf("Quel est ton nom ?\n");
     scanf("%s", &nom);
@@ -97,33 +115,134 @@ void newFichier(int score) {
 
     fclose(fichier);
 }
-int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    int stop = 1, colonne = 11, gagner = 2, score;
-    char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
-    //<editor-fold desc="Tableau et variable Bateaux">
-    char tableauBateaux[10][10] = {
-            {1,3,4,5,'o','o','o','o','o','o'},
-            {1,3,4,5,'o','o','o','o','o','o'},
-            {1,3,4,'o','o','o','o','o','o','o'},
-            {2,3,4,'o','o','o','o','o','o','o'},
-            {2,3,'o','o','o','o','o','o','o','o'},
-            {2,'o','o','o','o','o','o','o','o','o'},
-            {'o','o','o','o','o','o','o','o','o','o'},
-            {'o','o','o','o','o','o','o','o','o','o'},
-            {'o','o','o','o','o','o','o','o','o','o'},
-            {'o','o','o','o','o','o','o','o','o','o'}
-    };//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
-    int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
-    //</editor-fold>
-    char lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-
+void jouerDoWhile(){
     //initialisation des valeurs du tableau joueur
     for (int y = 0; y < 10; ++y) {
         for (int z = 0; z < 10; ++z) {
             tableauJoueur[y][z] = 'o';
         }
     }
+    do {
+        clear();
+        score = 0;
+        message = 0;
+
+        //Affiche le tableau
+        clear();
+        printf("  1 2 3 4 5 6 7 8 9 10\n");
+        for (int i = 0; i < 10; ++i) {
+
+            printf("%c ", lettre[i]);
+
+            for (int j = 0; j < 10; ++j) {
+
+                //Dès que la ligne et la colonne saisie correspond à la case qui va êtres affichée, vérifie si il y a un bateau
+                if (i == ligne && j == colonne) {
+                    if (tableauBateaux[i][j] >= 1 && tableauBateaux[i][j] <= 5 &&
+                        tableauJoueur[i][j] != 'T'&& tableauJoueur[i][j] != 'X') {
+
+                        //Pour chaque coup tiré dans une nouvelle case occupant un bateau, le bateau en question pert une vie, dès qu'il en a plus, il est détruis
+                        switch (tableauBateaux[i][j]) {
+                            case 1:
+                                sousMarin1Vie++;
+                                if (sousMarin1Vie == 3) {
+                                    sousMarin--;
+                                }
+                                break;
+                            case 2:
+                                sousMarin2Vie++;
+                                if (sousMarin2Vie == 3) {
+                                    sousMarin--;
+                                }
+                                break;
+                            case 3:
+                                portAvionVie++;
+                                if (portAvionVie == 5) {
+                                    portAvion--;
+                                }
+                                break;
+                            case 5:
+                                torpilleurVie++;
+                                if (torpilleurVie == 2) {
+                                    torpilleur--;
+                                }
+                                break;
+                            case 4:
+                                croiseurVie++;
+                                if (croiseurVie == 4) {
+                                    croiseur--;
+                                }
+                                break;
+
+                        }
+                        tableauJoueur[i][j] = 'T';
+                        message = 1;
+                    }
+                    else if(tableauJoueur[i][j] == 'T'){
+                        message = 3;
+                    }
+
+                        //Si il y a aucun bateau dans la case, affiche X pour indiquer que le joueur a raté
+                    else {
+                        tableauJoueur[i][j] = 'X';
+                        message = 2;
+                    }
+                }
+                printf("%c ", tableauJoueur[i][j]);
+            }
+            printf("\n");
+        }
+
+        //affiche le nombre de bateau restant
+        printf("Il reste %d Porte Avion  %d Croiseur  %d Sous-Marin  %d Torpilleur", portAvion, croiseur,
+               sousMarin,
+               torpilleur);
+
+        //<editor-fold desc="Système de vérification des valeurs + conversion des lettres en nombre">
+        do {
+            //Transforme les lettres(maj et min) en ASCII et les font correspondre à un nombre entre un et dix
+            switch (message) {
+                default:
+                    printf("");
+                    break;
+
+                case 1:{
+                    printf("\n\nBravo, tu a touché(e) !");
+                    break;
+                }
+                case 2:{
+                    printf("\n\nFlûte, tu a raté(e)...");
+                    break;
+                }
+                case 3:{
+                    printf("\n\nTu a déja entré(e) cette coordonée...");
+                    break;
+                }
+            }
+            printf("\n\nQu'elle est ta première coordonée (A, B, C, ect...)?");
+            scanf("%s", &ligneSaisie);
+            fflush(stdin);
+            if (ligneSaisie >= 65 && ligneSaisie <= 74) ligneSaisie += 32;
+            ligne = ligneSaisie - 97;
+            if (ligneSaisie <= 96 || ligneSaisie >= 107) printf("Sa doit êtes entre A et J !");
+        } while (ligneSaisie <= 96 || ligneSaisie >= 107); //verifie si entre A-J, sinon redemande
+        score++;
+        do {
+
+            //Même chose que pour les lettres mais cette fois ci pour des nombres
+            printf("\n\nQu'elle est ta seconde coordonée (1, 2, 3, ect...)?");
+            scanf("%d", &colonne);
+            fflush(stdin);
+            colonne -= 1;
+            if (colonne > 9 || colonne < 0) printf("Sa doit êtres entre 1 et 10 !");
+        } while (colonne > 9 || colonne < 0);//verifie si entre 1-10
+        //</editor-fold>
+
+    }while (portAvion != 0 && croiseur != 0 && sousMarin != 0 && torpilleur);
+}//fonction qui permet de jouer
+
+int main() {
+    SetConsoleOutputCP(CP_UTF8);
     clear();
     while (stop == 1) {
         switch (MODE) {
@@ -135,116 +254,32 @@ int main() {
                 queFair();
                 break;
 
-                //Si entre 1, affiche l'aide de jeux
+            //Si entre 1, affiche l'aide de jeux
             case 1 :
                 clear();
                 aideDeJeux();
                 queFair();
                 break;
 
-                //Si 2, joue à la Bataille Navale
+            //Si 2, joue à la Bataille Navale
             case 2 :
-                do {
-                    clear();
-                    score = 0;
-
-                    //Affiche le tableau
-                    clear();
-                    printf("  1 2 3 4 5 6 7 8 9 10\n");
-                    for (int i = 0; i < 10; ++i) {
-
-                        printf("%c ", lettre[i]);
-
-                        for (int j = 0; j < 10; ++j) {
-
-                            //Dès que la ligne et la colonne saisie correspond à la case qui va êtres affichée, vérifie si il y a un bateau
-                            if (i == ligne && j == colonne) {
-                                if (tableauBateaux[i][j] >= 1 && tableauBateaux[i][j] <= 5 ||
-                                    tableauJoueur[i][j] != 'o') {
-
-                                    //Pour chaque coup tiré dans une nouvelle case occupant un bateau, le bateau en question pert une vie, dès qu'il en a plus, il est détruis
-                                    switch (tableauBateaux[i][j]) {
-                                        case 1:
-                                            sousMarin1Vie++;
-                                            if (sousMarin1Vie == 3) {
-                                                sousMarin--;
-                                            }
-                                            break;
-                                        case 2:
-                                            sousMarin2Vie++;
-                                            if (sousMarin2Vie == 3) {
-                                                sousMarin--;
-                                            }
-                                            break;
-                                        case 3:
-                                            portAvionVie++;
-                                            if (portAvionVie == 5) {
-                                                portAvion--;
-                                            }
-                                            break;
-                                        case 5:
-                                            torpilleurVie++;
-                                            if (torpilleurVie == 2) {
-                                                torpilleur--;
-                                            }
-                                            break;
-                                        case 4:
-                                            croiseurVie++;
-                                            if (croiseurVie == 4) {
-                                                croiseur--;
-                                            }
-                                            break;
-
-                                    }
-                                    tableauJoueur[i][j] = 'T';
-                                }
-
-                                    //Si il y a aucun bateau dans la case, affiche X pour indiquer que le joueur a raté
-                                else tableauJoueur[i][j] = 'X';
-                            }
-                            printf("%c ", tableauJoueur[i][j]);
-                        }
-                        printf("\n");
-                    }
-
-                    //affiche le nombre de bateau restant
-                    printf("Il reste %d Porte Avion  %d Croiseur  %d Sous-Marin  %d Torpilleur", portAvion, croiseur,
-                           sousMarin,
-                           torpilleur);
-
-                    //<editor-fold desc="Système de vérification des valeurs + conversion des lettres en nombre">
-                    do {
-
-                        //Transforme les lettres(maj et min) en ASCII et les font correspondre à un nombre entre un et dix
-                        printf("\n\nQu'elle est ta première coordonée (A, B, C, ect...)?");
-                        scanf("%s", &ligneSaisie);
-                        fflush(stdin);
-                        if (ligneSaisie >= 65 && ligneSaisie <= 74) ligneSaisie += 32;
-                        ligne = ligneSaisie - 97;
-                        if (ligneSaisie <= 96 || ligneSaisie >= 107) printf("Sa doit êtes entre A et J !");
-                    } while (ligneSaisie <= 96 || ligneSaisie >= 107); //verifie si entre A-J, sinon redemande
-                    score++;
-                    do {
-
-                        //Même chose que pour les lettres mais cette fois ci pour des nombres
-                        printf("\n\nQu'elle est ta seconde coordonée (1, 2, 3, ect...)?");
-                        scanf("%d", &colonne);
-                        fflush(stdin);
-                        colonne -= 1;
-                        if (colonne > 9 || colonne < 0) printf("Sa doit êtres entre 1 et 10 !");
-                    } while (colonne > 9 || colonne < 0);//verifie si entre 1-10
-                    //</editor-fold>
-
-                }while (portAvion == 0 && croiseur == 0 && sousMarin == 0 && torpilleur);
+                jouerDoWhile();
                 gagner = 1;
                 break;
 
-                //Quitte si l'utilisateur entre 3
+            //si 3, affiche les scores
             case 3 :
-                stop = 0;
+
                 break;
 
-            case 4 :
+            //Quitte si l'utilisateur entre 4
+            case 4:
+                clear();
+                printf("Au revoir, à bientôt !\n");
+                system("pause");
+                stop = 0;
+                break;
+            case 5 :
                 gagner = 1;
                 break;
 
@@ -253,7 +288,7 @@ int main() {
         if (gagner == 1){
             clear();
             joueurGagne();
-            newFichier(score);
+            newFichier();
             queFair();
         }
     }
