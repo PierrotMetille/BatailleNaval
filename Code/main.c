@@ -1,15 +1,16 @@
 //Pierrot Métille
 //Bataille Navale
-//17.03.2021
+//Projet crée dans le cadre des modules MA 20 et ICT 431
+//17.03.2021-
 //Version 1
 
 #include <stdio.h>
 #include <windows.h>
 #include <stdlib.h>
+//<editor-fold desc="Déclaration de variable">
 int MODE = 0;
 int stop = 1, colonne = 11, gagner = 2, score, message;
 char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
-//<editor-fold desc="Tableau et variable Bateaux">
 char tableauBateaux[10][10] = {
         {1,3,4,5,'o','o','o','o','o','o'},
         {1,3,4,5,'o','o','o','o','o','o'},
@@ -23,8 +24,10 @@ char tableauBateaux[10][10] = {
         {'o','o','o','o','o','o','o','o','o','o'}
 };//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
 int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
-//</editor-fold>
 char lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+//</editor-fold>
+
+//Cette fonction Affiche L'aide de jeux
 void aideDeJeux(){
     //<editor-fold desc="Bienvenu BN">
     printf(" ____  _                                            _\n"
@@ -54,11 +57,15 @@ void aideDeJeux(){
            "J ○ ○ ○ ○ ○ ○ ○ ○ ○ ○   2 Sous-Marins = 3 T chacun\n"
            "↑ exemple de partie     1 Torpilleur = 2 T\n"
            "\nIl faut donc entrer des coordonées dans le but de toucher\nles navires ennemi, Exemple:\n"
-           "E7 touche, E8 ne touche pas\n");
+           "E7 touche, E8 ne touche pas\n\n");
     //</editor-fold>
-} // Affiche l'aide de jeux
+}
+
+//Cette fonction nettoie le terminal grace a l'instruction sysème cls
 void clear(){
     system("cls");} // Nettoie le terminal
+
+//Cette fonction affiche la page d'accueil
 void accueil(){
     //<editor-fold desc="Bataille Navale en ASCII">
     printf(" ____        _        _ _ _        _   _                  _\n"
@@ -82,7 +89,9 @@ void accueil(){
            " |                                                                    /\n"
            " .___________________________________________________________________'\n");
     //</editor-fold>
-}//Affiche l'accueil
+}
+
+//Cette fonction Affiche la page gagner
 void joueurGagne(){
     printf(" ______   _______  _______           _______    _ \n"
            "(  ___ \\ (  ____ )(  ___  )|\\     /|(  ___  )  ( )\n"
@@ -92,7 +101,12 @@ void joueurGagne(){
            "| (  \\ \\ | (\\ (   | (   ) | \\ \\_/ / | |   | |  (_)\n"
            "| )___) )| ) \\ \\__| )   ( |  \\   /  | (___) |   _ \n"
            "|/ \\___/ |/   \\__/|/     \\|   \\_/   (_______)  (_)\n");
-}//Affiche le menu "gagner"
+}
+
+/**
+ * Cette fonction Affiche les options disponibles
+ * et @return la variable MODE
+ */
 int queFair(){
     do {
         printf("Que voulez-vous faire maintenant ?\n│ 0. Accueil │ 1. Apprendre à Jouer │ 2. Jouer │ 3. Voir les scores │ 4. Quitter │\n");
@@ -102,19 +116,22 @@ int queFair(){
         //Ajout d'une 4 emm option pour directement afficher la fenêtre de victoire
     }while (MODE > 5 || MODE < 0);
     return MODE;
-}//Affiche les options disponibles quand l'utilisateur entre une valeur non valable
+}
+
+//Cette fonction crée et écris dans le fichier scores le nom et le score de l'utilisateur
 void newFichier() {
     char nom[100];
     printf("Quel est ton nom ?\n");
     scanf("%s", &nom);
     fflush(stdin);
     FILE* fichier = NULL;
-    fichier = fopen(nom, "a");
+    fichier = fopen("Scores.txt", "a");
+    fprintf(fichier, "%s %d\n",nom, score);
     printf("Bravo %s ton score est %d ! Plus ton score est haut, moin il est bon.\nLe meilleur score à obtenir est 17 !\n", nom, score);
-
-
     fclose(fichier);
 }
+
+//Cette fonction est l'entier du programme qui permet de jouer
 void jouerDoWhile(){
     //initialisation des valeurs du tableau joueur
     for (int y = 0; y < 10; ++y) {
@@ -239,52 +256,60 @@ void jouerDoWhile(){
         //</editor-fold>
 
     }while (portAvion != 0 && croiseur != 0 && sousMarin != 0 && torpilleur);
-}//fonction qui permet de jouer
+}
+
+//Cette fonction permet de lire dans le fichier score et de tout réecrire dans la fenètre scores
+int tableauScores(){
+
+}
 
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     clear();
     while (stop == 1) {
         switch (MODE) {
-
-            //Affiche de toute façon l'accueil
+            default:
+                //Affiche de toute façon l'accueil
             case 0 :
                 clear();
                 accueil();
                 queFair();
                 break;
 
-            //Si entre 1, affiche l'aide de jeux
+                //Si 1, affiche l'aide de jeux
             case 1 :
                 clear();
                 aideDeJeux();
                 queFair();
                 break;
 
-            //Si 2, joue à la Bataille Navale
+                //Si 2, joue à la Bataille Navale
             case 2 :
                 jouerDoWhile();
                 gagner = 1;
                 break;
 
-            //si 3, affiche les scores
+                //si 3, affiche les scores
             case 3 :
-
+                clear();
+                tableauScores();
+                queFair();
                 break;
 
-            //Quitte si l'utilisateur entre 4
+                //Si 4, quitte
             case 4:
                 clear();
                 printf("Au revoir, à bientôt !\n");
                 system("pause");
                 stop = 0;
                 break;
+                //5, pour mes testes
             case 5 :
                 gagner = 1;
                 break;
 
         }
-        //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son scor et se qu'il veut faire ensuite
+        //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son score et se qu'il veut faire ensuite
         if (gagner == 1){
             clear();
             joueurGagne();
