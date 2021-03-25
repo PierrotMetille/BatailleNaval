@@ -260,7 +260,21 @@ void jouerDoWhile(){
 
 //Cette fonction permet de lire dans le fichier score et de tout réecrire dans la fenètre scores
 int tableauScores(){
+    #define TAILLE_MAX 1000
+    FILE* fichier = NULL;
+    fichier = fopen("Scores.txt", "w");
+    char chaine[TAILLE_MAX] = "";
 
+    if (fichier != NULL){
+        while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+        {
+            printf("%s\n", chaine);
+        }
+        fclose(fichier);
+    }
+    else{
+        printf("Aucun scores n'a encors été fait...\n\n");
+    }
 }
 
 int main() {
