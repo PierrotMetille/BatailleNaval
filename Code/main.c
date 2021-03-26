@@ -7,9 +7,10 @@
 #include <stdio.h>
 #include <windows.h>
 #include <stdlib.h>
+#include <time.h>
 //<editor-fold desc="Déclaration de variable">
-int MODE = 0;
-int stop = 1, colonne = 11, gagner = 2, score, message;
+
+int MODE = 0, stop = 1, colonne = 11, gagner = 2, score, message, quelLogg = 99;
 char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
 char tableauBateaux[10][10] = {
         {1,3,4,5,'o','o','o','o','o','o'},
@@ -125,7 +126,7 @@ void newFichier() {
     scanf("%s", &nom);
     fflush(stdin);
     FILE* fichier = NULL;
-    fichier = fopen("Scores.txt", "a");
+    fichier = fopen("../Data/Scores.txt", "a");
     fprintf(fichier, "%s %d\n",nom, score);
     printf("Bravo %s ton score est %d ! Plus ton score est haut, moin il est bon.\nLe meilleur score à obtenir est 17 !\n", nom, score);
     fclose(fichier);
@@ -262,7 +263,7 @@ void jouerDoWhile(){
 int tableauScores(){
     #define TAILLE_MAX 1000
     FILE* fichier = NULL;
-    fichier = fopen("Scores.txt", "r");
+    fichier = fopen("../Data/Scores.txt", "r");
     char chaine[TAILLE_MAX] = "";
 
     if (fichier != NULL){
@@ -286,6 +287,33 @@ int tableauScores(){
     }
 }
 
+//cette fonction est un switch utiliser dans le but de logger se qui se passe durant la Bataille Navale
+void loggs(){
+    int hours, minutes, day, month, year;
+    time_t now;
+    time(&now);
+    struct tm *local = localtime(&now);
+    hours = local->tm_hour;          // get hours since midnight (0-23)
+    minutes = local->tm_min;         // get minutes passed after the hour (0-59)
+
+    day = local->tm_mday;            // get day of month (1 to 31)
+    month = local->tm_mon + 1;       // get month of year (0 to 11)
+    year = local->tm_year + 1900;    // get year since 1900
+
+
+    switch (quelLogg) {
+
+        default:
+            fflush(stdin);
+            FILE* fichier = NULL;
+            fichier = fopen("../Data/Loggs.txt", "a");
+            fprintf(fichier, "%d heure(s) %d minute(s) le %d.%d.%d : Application lancée\n", hours, minutes, day, month, year);
+            break;
+
+            case
+
+    }
+}
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     clear();
@@ -335,7 +363,7 @@ int main() {
                 break;
                 //5, pour mes testes
             case 5 :
-                gagner = 0;
+                gagner = 1;
                 break;
 
         }
