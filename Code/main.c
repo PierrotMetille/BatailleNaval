@@ -262,14 +262,23 @@ void jouerDoWhile(){
 int tableauScores(){
     #define TAILLE_MAX 1000
     FILE* fichier = NULL;
-    fichier = fopen("Scores.txt", "w");
+    fichier = fopen("Scores.txt", "r");
     char chaine[TAILLE_MAX] = "";
 
     if (fichier != NULL){
+        printf("             _      _     _                                               \n"
+               "            (_)    (_)   | |                                            _ \n"
+               " __   _____  _  ___ _    | | ___  ___     ___  ___ ___  _ __ ___  ___  (_)\n"
+               " \\ \\ / / _ \\| |/ __| |   | |/ _ \\/ __|   / __|/ __/ _ \\| '__/ _ \\/ __|    \n"
+               "  \\ V / (_) | | (__| |   | |  __/\\__ \\   \\__ \\ (_| (_) | | |  __/\\__ \\  _ \n"
+               "   \\_/ \\___/|_|\\___|_|   |_|\\___||___/   |___/\\___\\___/|_|  \\___||___/ (_)\n"
+               "                                                                          \n"
+               "                                                                          \n\n");
         while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
         {
             printf("%s\n", chaine);
         }
+        printf("\n\n");
         fclose(fichier);
     }
     else{
@@ -313,13 +322,20 @@ int main() {
                 //Si 4, quitte
             case 4:
                 clear();
-                printf("Au revoir, à bientôt !\n");
+                printf("                                        _          __       _     _            _   //\\  _     _ \n"
+                       "     /\\                                (_)         \\_\\     | |   (_)          | | |/ \\|| |   | |\n"
+                       "    /  \\  _   _     _ __ _____   _____  _ _ __     __ _    | |__  _  ___ _ __ | |_ ___ | |_  | |\n"
+                       "   / /\\ \\| | | |   | '__/ _ \\ \\ / / _ \\| | '__|   / _` |   | '_ \\| |/ _ \\ '_ \\| __/ _ \\| __| | |\n"
+                       "  / ____ \\ |_| |   | | |  __/\\ V / (_) | | |_    | (_| |   | |_) | |  __/ | | | || (_) | |_  |_|\n"
+                       " /_/    \\_\\__,_|   |_|  \\___| \\_/ \\___/|_|_( )    \\__,_|   |_.__/|_|\\___|_| |_|\\__\\___/ \\__| (_)\n"
+                       "                                           |/                                                   \n"
+                       "                                                                                               \n");
                 system("pause");
                 stop = 0;
                 break;
                 //5, pour mes testes
             case 5 :
-                gagner = 1;
+                gagner = 0;
                 break;
 
         }
