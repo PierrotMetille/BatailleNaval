@@ -10,7 +10,7 @@
 #include <time.h>
 //<editor-fold desc="Déclaration de variable">
 
-int MODE, stop = 1, colonne = 11, gagner = 2, score, message;
+int MODE = 10, stop = 1, colonne = 11, gagner = 2, score, message;
 char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
 char tableauBateaux[10][10] = {
         {1,3,4,5,'o','o','o','o','o','o'},
@@ -289,7 +289,7 @@ int tableauScores(){
 }
 
 //cette fonction est un switch utiliser dans le but de logger se qui se passe durant la Bataille Navale
-void loggs(){
+void logs(){
     int hours, minutes, day, month, year, seconds;
     time_t now;
     time(&now);
@@ -308,7 +308,7 @@ void loggs(){
 
     switch (MODE) {
 
-        default:
+        case 10 :
             fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : Application lancée\n", hours, minutes, seconds, day, month, year);
             break;
 
@@ -343,15 +343,14 @@ void loggs(){
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     clear();
-    loggs();
+    logs();
     while (stop == 1) {
         switch (MODE) {
             default:
-                MODE = 0;
                 break;
                 //Affiche de toute façon l'accueil
             case 0 :
-                loggs();
+                logs();
                 clear();
                 accueil();
                 queFair();
@@ -359,7 +358,7 @@ int main() {
 
                 //Si 1, affiche l'aide de jeux
             case 1 :
-                loggs();
+                logs();
                 clear();
                 aideDeJeux();
                 queFair();
@@ -367,14 +366,14 @@ int main() {
 
                 //Si 2, joue à la Bataille Navale
             case 2 :
-                loggs();
+                logs();
                 jouerDoWhile();
                 gagner = 1;
                 break;
 
                 //si 3, affiche les scores
             case 3 :
-                loggs();
+                logs();
                 clear();
                 tableauScores();
                 queFair();
@@ -382,7 +381,7 @@ int main() {
 
                 //Si 4, quitte
             case 4:
-                loggs();
+                logs();
                 clear();
                 printf("                                        _          __       _     _            _   //\\  _     _ \n"
                        "     /\\                                (_)         \\_\\     | |   (_)          | | |/ \\|| |   | |\n"
@@ -405,6 +404,7 @@ int main() {
         if (gagner == 1){
             clear();
             joueurGagne();
+            logs();
             newFichier();
             queFair();
         }
