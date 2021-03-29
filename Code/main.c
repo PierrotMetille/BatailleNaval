@@ -10,7 +10,7 @@
 #include <time.h>
 //<editor-fold desc="Déclaration de variable">
 
-int MODE = 0, stop = 1, colonne = 11, gagner = 2, score, message, quelLogg = 99;
+int MODE, stop = 1, colonne = 11, gagner = 2, score, message;
 char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
 char tableauBateaux[10][10] = {
         {1,3,4,5,'o','o','o','o','o','o'},
@@ -94,6 +94,7 @@ void accueil(){
 
 //Cette fonction Affiche la page gagner
 void joueurGagne(){
+    MODE = 5;
     printf(" ______   _______  _______           _______    _ \n"
            "(  ___ \\ (  ____ )(  ___  )|\\     /|(  ___  )  ( )\n"
            "| (   ) )| (    )|| (   ) || )   ( || (   ) |  | |\n"
@@ -261,7 +262,7 @@ void jouerDoWhile(){
 
 //Cette fonction permet de lire dans le fichier score et de tout réecrire dans la fenètre scores
 int tableauScores(){
-    #define TAILLE_MAX 1000
+#define TAILLE_MAX 1000
     FILE* fichier = NULL;
     fichier = fopen("../Data/Scores.txt", "r");
     char chaine[TAILLE_MAX] = "";
@@ -289,39 +290,68 @@ int tableauScores(){
 
 //cette fonction est un switch utiliser dans le but de logger se qui se passe durant la Bataille Navale
 void loggs(){
-    int hours, minutes, day, month, year;
+    int hours, minutes, day, month, year, seconds;
     time_t now;
     time(&now);
     struct tm *local = localtime(&now);
-    hours = local->tm_hour;          // get hours since midnight (0-23)
-    minutes = local->tm_min;         // get minutes passed after the hour (0-59)
+    hours = local->tm_hour;
+    minutes = local->tm_min;
+    seconds = local->tm_sec;
 
-    day = local->tm_mday;            // get day of month (1 to 31)
-    month = local->tm_mon + 1;       // get month of year (0 to 11)
-    year = local->tm_year + 1900;    // get year since 1900
+    day = local->tm_mday;
+    month = local->tm_mon + 1;
+    year = local->tm_year + 1900;
 
+    fflush(stdin);
+    FILE* fichier = NULL;
+    fichier = fopen("../Data/Loggs.txt", "a");
 
-    switch (quelLogg) {
+    switch (MODE) {
 
         default:
-            fflush(stdin);
-            FILE* fichier = NULL;
-            fichier = fopen("../Data/Loggs.txt", "a");
-            fprintf(fichier, "%d heure(s) %d minute(s) le %d.%d.%d : Application lancée\n", hours, minutes, day, month, year);
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : Application lancée\n", hours, minutes, seconds, day, month, year);
             break;
 
-            case
+        case 0 :
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : L'utilisateur est sur l'accueil\n", hours, minutes, seconds, day, month, year);
+            break;
+
+        case 1 :
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : L'utilisateur est sur l'aide de jeux\n", hours, minutes, seconds, day, month, year);
+            break;
+
+        case 2 :
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : L'utilisateur joue une partie\n", hours, minutes, seconds, day, month, year);
+            break;
+
+        case 3 :
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : L'utilisateur Affiche le tableau des scores\n", hours, minutes, seconds, day, month, year);
+            break;
+
+        case 4 :
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : L'utilisateur est sur l'accueil\n", hours, minutes, seconds, day, month, year);
+            break;
+
+        case 5 :
+            fprintf(fichier, "%d heure(s) %d minute(s) %d seconde(s) le %d.%d.%d : L'utilisateur a gagner la partie\n", hours, minutes, seconds, day, month, year);
+            break;
 
     }
+    fclose(fichier);
 }
+
 int main() {
     SetConsoleOutputCP(CP_UTF8);
     clear();
+    loggs();
     while (stop == 1) {
         switch (MODE) {
             default:
+                MODE = 0;
+                break;
                 //Affiche de toute façon l'accueil
             case 0 :
+                loggs();
                 clear();
                 accueil();
                 queFair();
@@ -329,6 +359,7 @@ int main() {
 
                 //Si 1, affiche l'aide de jeux
             case 1 :
+                loggs();
                 clear();
                 aideDeJeux();
                 queFair();
@@ -336,12 +367,14 @@ int main() {
 
                 //Si 2, joue à la Bataille Navale
             case 2 :
+                loggs();
                 jouerDoWhile();
                 gagner = 1;
                 break;
 
                 //si 3, affiche les scores
             case 3 :
+                loggs();
                 clear();
                 tableauScores();
                 queFair();
@@ -349,6 +382,7 @@ int main() {
 
                 //Si 4, quitte
             case 4:
+                loggs();
                 clear();
                 printf("                                        _          __       _     _            _   //\\  _     _ \n"
                        "     /\\                                (_)         \\_\\     | |   (_)          | | |/ \\|| |   | |\n"
