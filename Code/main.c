@@ -12,21 +12,31 @@
 
 int MODE = 10, stop = 1, colonne = 11, gagner = 2, score, message;
 char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
-char tableauBateaux[10][10] = {
-        {1,3,4,5,'o','o','o','o','o','o'},
-        {1,3,4,5,'o','o','o','o','o','o'},
-        {1,3,4,'o','o','o','o','o','o','o'},
-        {2,3,4,'o','o','o','o','o','o','o'},
-        {2,3,'o','o','o','o','o','o','o','o'},
-        {2,'o','o','o','o','o','o','o','o','o'},
-        {'o','o','o','o','o','o','o','o','o','o'},
-        {'o','o','o','o','o','o','o','o','o','o'},
-        {'o','o','o','o','o','o','o','o','o','o'},
-        {'o','o','o','o','o','o','o','o','o','o'}
-};//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur
+
+//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur, les tableau sont dans des fichiers externes
+char tableauBateaux[10][10];
 int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
 char lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 //</editor-fold>
+
+//Cette fonction est utilisé pour choisir un champs de travaille aléatoire
+void bateauxAleatoir(){
+    srand(time(NULL));
+    int bAlea;
+    char carac, nAleaDansFichier[50];
+
+    bAlea = rand() % 4 + 1;
+    FILE* fichier = NULL;
+    sprintf(nAleaDansFichier,"../Battefield/B%d.txt",bAlea);
+    fichier = fopen(nAleaDansFichier, "r");
+
+        for (int y = 0; y < 10; ++y) {
+            for (int z = 0; z < 10; ++z) {
+                carac = fgetc(fichier);
+                tableauBateaux[y][z] = carac;
+            }
+        }
+}
 
 //Cette fonction Affiche L'aide de jeux
 void aideDeJeux(){
@@ -64,7 +74,7 @@ void aideDeJeux(){
 
 //Cette fonction nettoie le terminal grace a l'instruction sysème cls
 void clear(){
-    system("cls");} // Nettoie le terminal
+    system("cls");}
 
 //Cette fonction affiche la page d'accueil
 void accueil(){
@@ -145,7 +155,7 @@ void jouerDoWhile(){
         clear();
         score = 0;
         message = 0;
-
+        bateauxAleatoir();
         //Affiche le tableau
         clear();
         printf("  1 2 3 4 5 6 7 8 9 10\n");
@@ -347,6 +357,7 @@ int main() {
     while (stop == 1) {
         switch (MODE) {
             default:
+                MODE = 0;
                 break;
                 //Affiche de toute façon l'accueil
             case 0 :
@@ -394,11 +405,6 @@ int main() {
                 system("pause");
                 stop = 0;
                 break;
-                //5, pour mes testes
-            case 5 :
-                gagner = 1;
-                break;
-
         }
         //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son score et se qu'il veut faire ensuite
         if (gagner == 1){

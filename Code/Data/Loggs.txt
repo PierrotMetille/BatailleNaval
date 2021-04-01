@@ -2,3 +2,37 @@
 9 heure(s) 23 minute(s) 42 seconde(s) le 29.3.2021 : L'utilisateur est sur l'accueil
 9 heure(s) 23 minute(s) 47 seconde(s) le 29.3.2021 : L'utilisateur Affiche le tableau des scores
 9 heure(s) 23 minute(s) 53 seconde(s) le 29.3.2021 : L'utilisateur Affiche le tableau des scores
+11 heure(s) 40 minute(s) 10 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 41 minute(s) 20 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 41 minute(s) 26 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 41 minute(s) 44 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 41 minute(s) 48 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 44 minute(s) 5 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 44 minute(s) 5 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+11 heure(s) 44 minute(s) 8 seconde(s) le 1.4.2021 : L'utilisateur joue une partie
+11 heure(s) 48 minute(s) 33 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 48 minute(s) 33 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+11 heure(s) 48 minute(s) 35 seconde(s) le 1.4.2021 : L'utilisateur joue une partie
+11 heure(s) 58 minute(s) 15 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 58 minute(s) 15 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+11 heure(s) 58 minute(s) 17 seconde(s) le 1.4.2021 : L'utilisateur joue une partie
+11 heure(s) 59 minute(s) 36 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 59 minute(s) 36 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+11 heure(s) 59 minute(s) 57 seconde(s) le 1.4.2021 : Application lancée
+11 heure(s) 59 minute(s) 57 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 2 minute(s) 29 seconde(s) le 1.4.2021 : Application lancée
+12 heure(s) 2 minute(s) 29 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 4 minute(s) 0 seconde(s) le 1.4.2021 : Application lancée
+12 heure(s) 4 minute(s) 0 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 4 minute(s) 13 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 4 minute(s) 37 seconde(s) le 1.4.2021 : Application lancée
+12 heure(s) 4 minute(s) 37 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 5 minute(s) 28 seconde(s) le 1.4.2021 : Application lancée
+12 heure(s) 5 minute(s) 28 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 5 minute(s) 55 seconde(s) le 1.4.2021 : L'utilisateur joue une partie
+12 heure(s) 8 minute(s) 2 seconde(s) le 1.4.2021 : Application lancée
+12 heure(s) 8 minute(s) 2 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 8 minute(s) 4 seconde(s) le 1.4.2021 : L'utilisateur joue une partie
+12 heure(s) 9 minute(s) 17 seconde(s) le 1.4.2021 : Application lancée
+12 heure(s) 9 minute(s) 17 seconde(s) le 1.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 9 minute(s) 18 seconde(s) le 1.4.2021 : L'utilisateur joue une partie
