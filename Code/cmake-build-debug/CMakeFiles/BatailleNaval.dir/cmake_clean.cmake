@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
   "BatailleNaval.exe"
   "BatailleNaval.exe.manifest"
+  "BatailleNaval.lib"
   "BatailleNaval.pdb"
   "CMakeFiles/BatailleNaval.dir/main.c.obj"
-  "libBatailleNaval.dll.a"
 )
 
 # Per-language clean rules from dependency scanning.

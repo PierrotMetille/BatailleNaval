@@ -10,11 +10,11 @@
 #include <time.h>
 //<editor-fold desc="Déclaration de variable">
 
-int MODE = 10, stop = 1, colonne = 11, gagner = 2, score, message;
+int MODE = 10, stop = 1, colonne = 11, gagner = 2, score, message,numBateau;
 char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
 
 //1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur, les tableau sont dans des fichiers externes
-char tableauBateaux[10][10];
+int tableauBateaux[10][10];
 int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
 char lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 //</editor-fold>
@@ -33,7 +33,7 @@ void bateauxAleatoir(){
         for (int y = 0; y < 10; ++y) {
             for (int z = 0; z < 10; ++z) {
                 carac = fgetc(fichier);
-                tableauBateaux[y][z] = carac;
+                    tableauBateaux[y][z] = carac;
             }
         }
 }
@@ -151,11 +151,18 @@ void jouerDoWhile(){
             tableauJoueur[y][z] = 'o';
         }
     }
+    bateauxAleatoir();
+    for (int y = 0; y < 10; ++y) {
+        printf("\n");
+        for (int z = 0; z < 10; ++z) {
+                printf("%c",tableauBateaux[y][z]);
+        }
+    }
+    system("pause");
     do {
         clear();
         score = 0;
         message = 0;
-        bateauxAleatoir();
         //Affiche le tableau
         clear();
         printf("  1 2 3 4 5 6 7 8 9 10\n");
@@ -167,9 +174,7 @@ void jouerDoWhile(){
 
                 //Dès que la ligne et la colonne saisie correspond à la case qui va êtres affichée, vérifie si il y a un bateau
                 if (i == ligne && j == colonne) {
-                    if (tableauBateaux[i][j] >= 1 && tableauBateaux[i][j] <= 5 &&
-                        tableauJoueur[i][j] != 'T'&& tableauJoueur[i][j] != 'X') {
-
+                    if (tableauBateaux[i][j] != '0' && tableauJoueur[i][j] != 'T' && tableauJoueur[i][j] != 'X') {
                         //Pour chaque coup tiré dans une nouvelle case occupant un bateau, le bateau en question pert une vie, dès qu'il en a plus, il est détruis
                         switch (tableauBateaux[i][j]) {
                             case 1:
@@ -190,13 +195,13 @@ void jouerDoWhile(){
                                     portAvion--;
                                 }
                                 break;
-                            case 5:
+                            case 4:
                                 torpilleurVie++;
                                 if (torpilleurVie == 2) {
                                     torpilleur--;
                                 }
                                 break;
-                            case 4:
+                            case 5:
                                 croiseurVie++;
                                 if (croiseurVie == 4) {
                                     croiseur--;
@@ -207,12 +212,13 @@ void jouerDoWhile(){
                         tableauJoueur[i][j] = 'T';
                         message = 1;
                     }
-                    else if(tableauJoueur[i][j] == 'T'){
+                    else if(tableauJoueur[i][j] == 'T' ||tableauJoueur[i][j] == 'X'){
                         message = 3;
+                        score --;
                     }
 
                         //Si il y a aucun bateau dans la case, affiche X pour indiquer que le joueur a raté
-                    else {
+                    else if (tableauBateaux[i][j] == '0')  {
                         tableauJoueur[i][j] = 'X';
                         message = 2;
                     }
@@ -235,18 +241,18 @@ void jouerDoWhile(){
                     printf("");
                     break;
 
-                case 1:{
+                case 1:
                     printf("\n\nBravo, tu a touché(e) !");
                     break;
-                }
-                case 2:{
+
+                case 2:
                     printf("\n\nFlûte, tu a raté(e)...");
                     break;
-                }
-                case 3:{
+
+                case 3:
                     printf("\n\nTu a déja entré(e) cette coordonée...");
                     break;
-                }
+
             }
             printf("\n\nQu'elle est ta première coordonée (A, B, C, ect...)?");
             scanf("%s", &ligneSaisie);
@@ -271,7 +277,7 @@ void jouerDoWhile(){
 }
 
 //Cette fonction permet de lire dans le fichier score et de tout réecrire dans la fenètre scores
-int tableauScores(){
+void tableauScores(){
 #define TAILLE_MAX 1000
     FILE* fichier = NULL;
     fichier = fopen("../Data/Scores.txt", "r");
