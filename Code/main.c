@@ -1,7 +1,7 @@
 //Pierrot Métille
 //Bataille Navale
 //Projet crée dans le cadre des modules MA 20 et ICT 431
-//17.03.2021-
+//17.03.2021-02.04.2021
 //Version 1
 
 #include <stdio.h>
@@ -9,17 +9,15 @@
 #include <stdlib.h>
 #include <time.h>
 //<editor-fold desc="Déclaration de variable">
-
-int MODE = 10, stop = 1, colonne = 11, gagner = 2, score, message,numBateau;
-char ligne = 'K', ligneSaisie, tableauJoueur[10][10];
-
-//1,2=Sous-Marin/3=Port-Avion/4 =Torpilleur/5=Croiseur, les tableau sont dans des fichiers externes
+int MODE = 10, stop = 1, colonne = 11, gagner = 2, score, message;
+char ligne = 'K', ligneSaisie, tableauJoueur[10][10],lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 int tableauBateaux[10][10];
 int sousMarin = 2, sousMarin1Vie = 0, sousMarin2Vie = 0, portAvion = 1, portAvionVie = 0, torpilleur = 1, torpilleurVie = 0, croiseur = 1, croiseurVie = 0;
-char lettre[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
 //</editor-fold>
 
-//Cette fonction est utilisé pour choisir un champs de travaille aléatoire
+/**
+ * Cette fonction est utilisé pour choisir un champs de bataille aléatoirement
+ */
 void bateauxAleatoir(){
     srand(time(NULL));
     int bAlea;
@@ -30,15 +28,17 @@ void bateauxAleatoir(){
     sprintf(nAleaDansFichier,"../Battefield/B%d.txt",bAlea);
     fichier = fopen(nAleaDansFichier, "r");
 
-        for (int y = 0; y < 10; ++y) {
-            for (int z = 0; z < 10; ++z) {
-                carac = fgetc(fichier);
-                    tableauBateaux[y][z] = carac;
-            }
+    for (int y = 0; y < 10; ++y) {
+        for (int z = 0; z < 10; ++z) {
+            carac = fgetc(fichier);
+            tableauBateaux[y][z] = carac;
         }
+    }
 }
 
-//Cette fonction Affiche L'aide de jeux
+/**
+ *Cette fonction Affiche L'aide de jeux
+ */
 void aideDeJeux(){
     //<editor-fold desc="Bienvenu BN">
     printf(" ____  _                                            _\n"
@@ -72,11 +72,15 @@ void aideDeJeux(){
     //</editor-fold>
 }
 
-//Cette fonction nettoie le terminal grace a l'instruction sysème cls
+/**
+ * Cette fonction nettoie le terminal grace a l'instruction system cls
+ */
 void clear(){
     system("cls");}
 
-//Cette fonction affiche la page d'accueil
+/**
+ *Cette fonction affiche la page d'accueil
+ */
 void accueil(){
     //<editor-fold desc="Bataille Navale en ASCII">
     printf(" ____        _        _ _ _        _   _                  _\n"
@@ -102,7 +106,9 @@ void accueil(){
     //</editor-fold>
 }
 
-//Cette fonction Affiche la page gagner
+/**
+ * Cette fonction Affiche la page gagner
+ */
 void joueurGagne(){
     MODE = 5;
     printf(" ______   _______  _______           _______    _ \n"
@@ -125,12 +131,13 @@ int queFair(){
         printf("Je veut :");
         scanf("%d", &MODE);
         fflush(stdin);
-        //Ajout d'une 4 emm option pour directement afficher la fenêtre de victoire
-    }while (MODE > 5 || MODE < 0);
+    }while (MODE > 4 || MODE < 0);
     return MODE;
 }
 
-//Cette fonction crée et écris dans le fichier scores le nom et le score de l'utilisateur
+/**
+ * Cette fonction crée et écris dans le fichier scores le nom et le score de l'utilisateur
+ */
 void newFichier() {
     char nom[100];
     printf("Quel est ton nom ?\n");
@@ -143,8 +150,10 @@ void newFichier() {
     fclose(fichier);
 }
 
-//Cette fonction est l'entier du programme qui permet de jouer
-void jouerDoWhile(){
+/**
+ * Cette fonction est l'entier du programme qui permet de jouer
+ */
+void jouer(){
     //initialisation des valeurs du tableau joueur
     for (int y = 0; y < 10; ++y) {
         for (int z = 0; z < 10; ++z) {
@@ -155,7 +164,7 @@ void jouerDoWhile(){
     for (int y = 0; y < 10; ++y) {
         printf("\n");
         for (int z = 0; z < 10; ++z) {
-                printf("%c",tableauBateaux[y][z]);
+            printf("%c",tableauBateaux[y][z]);
         }
     }
     system("pause");
@@ -276,7 +285,9 @@ void jouerDoWhile(){
     }while (portAvion != 0 && croiseur != 0 && sousMarin != 0 && torpilleur);
 }
 
-//Cette fonction permet de lire dans le fichier score et de tout réecrire dans la fenètre scores
+/**
+ * Cette fonction permet de lire dans le fichier score et de tout réecrire dans la fenètre scores
+ */
 void tableauScores(){
 #define TAILLE_MAX 1000
     FILE* fichier = NULL;
@@ -304,7 +315,9 @@ void tableauScores(){
     }
 }
 
-//cette fonction est un switch utiliser dans le but de logger se qui se passe durant la Bataille Navale
+/**
+ * cette fonction est un switch utiliser dans le but de logger se qui se passe durant la Bataille Navale
+ */
 void logs(){
     int hours, minutes, day, month, year, seconds;
     time_t now;
@@ -365,6 +378,7 @@ int main() {
             default:
                 MODE = 0;
                 break;
+
                 //Affiche de toute façon l'accueil
             case 0 :
                 logs();
@@ -384,19 +398,18 @@ int main() {
                 //Si 2, joue à la Bataille Navale
             case 2 :
                 logs();
-                jouerDoWhile();
+                jouer();
                 gagner = 1;
                 break;
 
-                //si 3, affiche les scores
+                //Si 3, affiche les scores
             case 3 :
                 logs();
                 clear();
                 tableauScores();
                 queFair();
                 break;
-
-                //Si 4, quitte
+                //Si 4, affiche le "au revoir,ext.." et quitte le programme
             case 4:
                 logs();
                 clear();
@@ -412,7 +425,7 @@ int main() {
                 stop = 0;
                 break;
         }
-        //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, son score et se qu'il veut faire ensuite
+        //Si tout les bateaux son détruis et donc que gagner = 1, affiche le menu de victoire + demande à l'utilisateur son nom, se qu'il veut faire ensuite et lui communique son score
         if (gagner == 1){
             clear();
             joueurGagne();
