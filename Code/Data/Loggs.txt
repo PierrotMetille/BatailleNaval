@@ -203,3 +203,11 @@
 14 heure(s) 35 minute(s) 22 seconde(s) le 2.4.2021 : L'utilisateur est sur l'accueil
 19 heure(s) 20 minute(s) 54 seconde(s) le 2.4.2021 : Application lancée
 19 heure(s) 20 minute(s) 54 seconde(s) le 2.4.2021 : L'utilisateur est sur l'accueil
+12 heure(s) 0 minute(s) 38 seconde(s) le 7.4.2021 : Application lancée
+12 heure(s) 0 minute(s) 38 seconde(s) le 7.4.2021 : L'utilisateur est sur l'accueil
+23 heure(s) 9 minute(s) 2 seconde(s) le 14.4.2021 : Application lancée
+23 heure(s) 9 minute(s) 2 seconde(s) le 14.4.2021 : L'utilisateur est sur l'accueil
+23 heure(s) 9 minute(s) 7 seconde(s) le 14.4.2021 : L'utilisateur joue une partie
+23 heure(s) 11 minute(s) 56 seconde(s) le 14.4.2021 : Application lancée
+23 heure(s) 11 minute(s) 56 seconde(s) le 14.4.2021 : L'utilisateur est sur l'accueil
+23 heure(s) 11 minute(s) 57 seconde(s) le 14.4.2021 : L'utilisateur joue une partie

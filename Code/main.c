@@ -161,13 +161,6 @@ void jouer(){
         }
     }
     bateauxAleatoir();
-    for (int y = 0; y < 10; ++y) {
-        printf("\n");
-        for (int z = 0; z < 10; ++z) {
-            printf("%c",tableauBateaux[y][z]);
-        }
-    }
-    system("pause");
     do {
         clear();
         score = 0;
